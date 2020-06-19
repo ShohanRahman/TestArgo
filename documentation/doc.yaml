@@ -1,0 +1,106 @@
+openapi: 3.0.2
+
+info:
+  title: People
+  version: v1
+  description: REST API to manage a DB of user information
+
+servers:
+  - url: http://127.17.1.3/api/v1alpha1
+
+paths:
+  /api/v1/people:
+    post:
+      summary: Create people
+      description: Create a user with its age, its name and its city.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                age:
+                  type: number
+                city:
+                  type: string
+      responses:
+        201:
+          description: People created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/People"
+        400:
+          description: Bad request.
+
+    get:
+      summary: Return a list of users.
+      description: Retrieve a list of users with every information.
+      responses:
+        200:
+          description: People successfuly returned.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/People"
+
+  /api/v1/people/:peopleId:
+    delete:
+      summary: Delete people
+      description: Delete one people by its id.
+      responses:
+        200:
+          description: People successfuly deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    get:
+      summary: Retrieve one people
+      description: Retrieve one user by its id.
+      responses:
+        200:
+          description: People successfuly retrieved.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        404:
+          description: People not found.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  schemas:
+    People:
+      type: object
+      properties:
+        _id:
+          readOnly: true
+          type: string
+        createdAt:
+          readOnly: true
+          type: string
+          format: datetime
+        name:
+          type: string
+        city:
+          type: string
+        age:
+          type: number

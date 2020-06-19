@@ -1,0 +1,10 @@
+apiVersion: skaffold/v2beta4
+kind: Config
+build:
+  artifacts:
+    - image: node-express-api
+      context: .
+deploy:
+  kubectl:
+    manifests:
+      - ./kubernetes/deployment.yaml

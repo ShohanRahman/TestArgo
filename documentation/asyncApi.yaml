@@ -1,0 +1,71 @@
+asyncapi: 2.0.0
+info:
+  title: People
+  version: "1.0"
+  description: The different services are linked. The creation of people launchs the recommandation of friend if it is possible. If a recommandation of friend is created it launchs the creation of a notification.
+
+servers:
+  production:
+    url: localhost:9093
+    protocol: unknown
+    variables:
+      port:
+        description: Connection is available through port 9093.
+
+defaultContentType: application/json
+
+channels:
+  training_people_created:
+    description: The Kafka topic used for the creation of a user.
+    subscribe:
+      operationId: people
+      message:
+        $ref: "#/components/messages/peopleCreated"
+
+components:
+  messages:
+    peopleCreated:
+      contentType: application/json
+      payload:
+        $ref: "#/components/schemas/lightMeasuredPayload"
+
+  schemas:
+    lightMeasuredPayload:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Id of the request/process that creates the kafka message.
+        specVersion:
+          type: string
+          example: "1.0"
+        date:
+          type: string
+          format: date-time
+          description: Date and time when the message was sent.
+        type:
+          type: string
+          example: "com.training.people.peopleCreated.v1"
+        dataContentType:
+          type: string
+          enum: ["application/json"]
+        source:
+          type: string
+          enum: ["com.training.people"]
+        data:
+          $ref: "#/components/schemas/people"
+    people:
+      type: object
+      properties:
+        name:
+          type: string
+        city:
+          type: string
+        age:
+          type: number
+        _id:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+          description: Date and time when the people was created.

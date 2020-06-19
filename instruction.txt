@@ -1,0 +1,17 @@
+docker image build --tag=node-express-api .    // build an image from a container
+minikube docker-env
+eval $(minikube -p minikube docker-env) // the docker image that will be created will be on the vm 
+minikube ip // get the ip of the vm
+http://172.17.0.3:32000/metrics
+http://localhost:9090/graph?g0.range_input=1h&g0.expr=http_request_duration_se
+http://localhost:3000/dashboard/new?panelId=2&edit&fullscreen&orgId=1&gettingstarted&from=now-5m&to=now
+
+sudo fuser -n tcp -k 27017 // when port is already bind
+docker network connect bridge <cid_of_prometheus> // localhost:9090
+
+
+kafka-topics --bootstrap-server=localhost:9092 --list  // get the list of the 
+kafka-console-consumer --bootstrap-server=localhost:9092 --topic=<...>  // mock a consumer and receive the kafka msg
+
+
+ip route
