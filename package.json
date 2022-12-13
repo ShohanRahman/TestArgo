@@ -5,7 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "@hapi/joi": "^17.1.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-pino-logger": "^5.0.0",
     "express-prom-bundle": "^6.0.0",
     "http-status-codes": "^1.4.0",
